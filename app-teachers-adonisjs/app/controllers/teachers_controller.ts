@@ -1,5 +1,6 @@
 import Teacher from '#models/teacher'
 import type { HttpContext } from '@adonisjs/core/http'
+import { dd } from '@adonisjs/core/services/dumper'
 
 export default class TeachersController {
   /**
@@ -8,12 +9,12 @@ export default class TeachersController {
   async index({ view }: HttpContext) {
     //
     // Récupérer la liste des enseignants triés par ordre alphabétique sur le nomet le prénom
-    const teachers = await Teacher.query().orderBy('lastname',
-   'asc').orderBy('firstname', 'asc')
+    const teachers = await Teacher.query().orderBy('lastname', 'asc').orderBy('firstname', 'asc')
+    //dd(teachers)
     // Appel de la vue
     return view.render('pages/home', { teachers })
-    }
-   
+  }
+
   /**
    * Display form to create a new record
    */

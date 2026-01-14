@@ -26,7 +26,7 @@ export default class extends BaseSchema {
         .integer('section_id') // Clé étrangère
         .unsigned() // La clé ne doit pas être négative
         .references('id') // Référence la colonne `id` de la table `section`
-        .inTable('section') // Nom de la table de référence
+        .inTable('sections') // Nom de la table de référence
         .onDelete('CASCADE')
         .onUpdate('CASCADE')
 
