@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
-  <title>
-    Version statique de l'application des surnoms
-  </title>
-</head>
-
 <body>
 
   <div class="container">
@@ -45,13 +35,13 @@
             </td>
             <td class="containerOptions">
               <a href="#">
-                <img height="20em" src="resources/img/edit.png" alt="edit" />
+                <img height="20em" src="/img/edit.png" alt="edit" />
               </a>
               <a href="javascript:confirmDelete()">
-                <img height="20em" src="resources/img/delete.png" alt="delete" />
+                <img height="20em" src="/img/delete.png" alt="delete" />
               </a>
-              <a href="detailTeacher.html">
-                <img height="20em" src="resources/img/detail.png" alt="detail" />
+              <a href="{{ route('teacher.show', {id: teacher.id}) }}">
+                <img height="20em" src="/img/detail.png" alt="detail" />
               </a>
             </td>
           </tr>
@@ -63,8 +53,5 @@
 
 
   </div>
-
-
 </body>
-
 </html>
