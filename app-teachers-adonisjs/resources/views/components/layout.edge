@@ -9,9 +9,9 @@
       {{ title || "Application des surnoms des enseignants" }}
     </title>
   </head>
-  
   <body>
     @include('partials/header')
+    @include('partials/flash')
     <div class="container">
       {{{ await $slots.main() }}}
     </div>
