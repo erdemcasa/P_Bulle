@@ -52,30 +52,62 @@ export default class TeachersController {
    * Show individual record
    */
   async show({ params, view }: HttpContext) {
-  // Sélectionner l'enseignant dont on veut afficher les détails
-  const teacher = await Teacher.query().where('id', params.id).preload('section').firstOrFail();
-  // Afficher la vue
-  return view.render('pages/teachers/show.edge', { title: "Détail d'unenseignant", teacher });
-}
+    // Sélectionner l'enseignant dont on veut afficher les détails
+    const teacher = await Teacher.query().where('id', params.id).preload('section').firstOrFail();
+    // Afficher la vue
+    return view.render('pages/teachers/show.edge', { title: "Détail d'unenseignant", teacher });
+  }
   /**
    * Edit individual record
    */
-  async edit({ params }: HttpContext) { }
+  async edit({ params, view }: HttpContext) {
+    const teacher = await Teacher.findOrFail(params.id)
+
+    const sections = await Section.query().orderBy('name', 'asc');
+
+    return view.render('pages/teachers/edit.edge', {
+      title: 'Modifier un enseignant',
+      teacher,
+      sections,
+    });
+  }
   /**
    * Handle form submission for the edit action
    */
-  async update({ params, request }: HttpContext) { }
+  async update({ params, request, session, response }: HttpContext) {
+    const { gender, firstname, lastname, nickname, origine, sectionId } =
+    await request.validateUsing(teacherValidator)
+    
+    const teacher = await Teacher.findOrFail(params.id)
+    
+    teacher.merge({
+      gender,
+      firstname,
+      lastname,
+      nickname,
+      origine,
+      sectionId,
+    })
+    const teacherUpdated = await teacher.save()
+    
+    session.flash(
+      'success',
+      `L'enseignant ${teacherUpdated.lastname} ${teacherUpdated.firstname} a été mis à jour avec succès !`
+    )
+    
+    return response.redirect().toRoute('home')
+  }
   /**
    * Delete record
    */
   async destroy({ params, session, response }: HttpContext) {
-  const teacher = await Teacher.findOrFail(params.id);
+    const teacher = await Teacher.findOrFail(params.id);
 
-  await teacher.delete();
+    await teacher.delete();
 
-  session.flash('success', `L'enseignant ${teacher.lastname} ${teacher.firstname} a été supprimé avec succès !`);
+    session.flash('success', `L'enseignant ${teacher.lastname} ${teacher.firstname} a été supprimé avec succès !`);
 
-  return response.redirect().toRoute('home');
+    return response.redirect().toRoute('home');
 
-}
+  }
 }

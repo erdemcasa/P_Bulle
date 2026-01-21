@@ -18,3 +18,6 @@ router.delete('/teacher/:id/destroy', [TeachersController, 'destroy']).as('teach
 
 router.get('/teacher/add', [TeachersController, 'create']).as('teacher.create')
 router.post('/teacher/add', [TeachersController, 'store']).as('teacher.store')
+
+router.get('/teacher/:id/edit', [TeachersController, 'edit']).as('teacher.edit')
+router.put('/teacher/:id/update', [TeachersController,'update']).as('teacher.update')
