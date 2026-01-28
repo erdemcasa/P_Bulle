@@ -4,5 +4,16 @@
   "branch": "main",
   "me": "erdemcasa",
   "journalStartDate": "2026-01-14T13:00:00.000Z",
-  "exceptions": []
+  "exceptions": [
+    {
+      "id": "8e21980b-4d90-481e-b3e6-8522c404fe0a",
+      "type": "commitless",
+      "name": "dev(delete) Ajout de la fonction delete des teacher dans l'accueil ainsi",
+      "description": "Avec le bouton supprimer on peut delete le teacher de la base de\r\ndonnées. Dans la page d'accueil et dans la page détail.",
+      "date": "2026-01-21T13:40",
+      "duration": 25,
+      "status": "Done",
+      "author": "erdemcasa"
+    }
+  ]
 }
