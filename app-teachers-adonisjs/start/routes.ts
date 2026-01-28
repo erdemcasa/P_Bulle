@@ -8,6 +8,7 @@
 */
 
 import AuthController from '#controllers/auth_controller'
+import SectionsController from '#controllers/sections_controller'
 import TeachersController from '#controllers/teachers_controller'
 import router from '@adonisjs/core/services/router'
 
@@ -24,3 +25,12 @@ router.get('/teacher/:id/edit', [TeachersController, 'edit']).as('teacher.edit')
 router.put('/teacher/:id/update', [TeachersController,'update']).as('teacher.update')
 
 router.post('/login', [AuthController, 'login']).as('auth.login')
+
+
+// VOIR SECTION
+router.get('/sections', [SectionsController, 'index']).as('section.show')
+// DELETE SECTION
+router.delete('/section/:id/destroy', [SectionsController, 'destroy']).as('section.destroy')
+// ADD SECTION
+router.get('/section/add', [SectionsController, 'create']).as('section.create')
+router.post('/section/add', [SectionsController, 'store']).as('section.store')
