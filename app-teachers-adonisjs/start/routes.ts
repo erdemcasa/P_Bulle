@@ -26,6 +26,7 @@ router.put('/teacher/:id/update', [TeachersController,'update']).as('teacher.upd
 
 router.post('/login', [AuthController, 'login']).as('auth.login')
 
+router.post('/logout', [AuthController, 'logout']).as('auth.logout')
 
 // VOIR SECTION
 router.get('/sections', [SectionsController, 'index']).as('section.show')
