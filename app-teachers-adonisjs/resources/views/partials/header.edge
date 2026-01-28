@@ -16,19 +16,29 @@
       @else
         <form action="{{ route('auth.login') }}" method="post">
           {{ csrfField() }}
-          <input type="text" id="username" name="username" value="{{ old('username') || '' }}"
-            placeholder="Nom d'utilisateur" />
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value="{{ old('username') || '' }}"
+            placeholder="Nom d'utilisateur"
+          />
           @inputError('username')
-          <p class="text-danger">
-            {{ $messages.join(', ') }}
-          </p>
+            <p class="text-danger">
+              {{ $messages.join(', ') }}
+            </p>
           @end
-          <input type="password" id="password" name="password" value="{{ old('password') || '' }}"
-            placeholder="Mot de passe" />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value="{{ old('password') || '' }}"
+            placeholder="Mot de passe"
+          />
           @inputError('password')
-          <p class="text-danger">
-            {{ $messages.join(', ') }}
-          </p>
+            <p class="text-danger">
+              {{ $messages.join(', ') }}
+            </p>
           @end
           <button type="submit" class="btn btn-login">Se connecter</button>
         </form>
@@ -37,8 +47,11 @@
   </div>
   <nav>
     <a href="{{ route('home') }}">Accueil</a>&nbsp;
-    <a href="{{ route('section.show') }}">Sections</a>
-    <a href="{{ route('teacher.create') }}">Ajouter un enseignant</a>
-    <a href="{{ route('section.store') }}">Ajouter une section</a>
+    @if(auth.isAuthenticated && auth.user.isAdmin)
+      <a href="{{ route('teacher.create') }}">Ajouter un enseignant</a>
+      <a href="{{ route('section.show') }}">Sections</a>
+      <a href="{{ route('teacher.create') }}">Ajouter un enseignant</a>
+      <a href="{{ route('section.store') }}">Ajouter une section</a>
+    @end
   </nav>
 </header>
