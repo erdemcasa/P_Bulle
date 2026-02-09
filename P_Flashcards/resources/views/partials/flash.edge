@@ -1,0 +1,11 @@
+@if(flashMessages.has('success'))
+  <div style="background-color: #d1edda; color: #155724; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+    {{ flashMessages.get('success') }}
+  </div>
+@endif
+
+@if(flashMessages.has('error'))
+  <div style="background-color: #f8d7da; color: #721c24; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+    {{ flashMessages.get('error') }}
+  </div>
+@endif
