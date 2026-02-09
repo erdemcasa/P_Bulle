@@ -6,4 +6,16 @@
   @vite(['resources/css/app.css'])
 </head>
 <body>
+    <nav class="navbar">
+        <a href="{{ route('home') }}" class="nav-logo">FLASH67</a>
+
+        <div class="nav-links">
+            <a href="{{ route('home') }}" class="nav-link">Accueil</a>
+        </div>
+
+        <div class="nav-auth">
+            <a href="#" class="login-button">Se connecter</a>
+        </div>
+    </nav>
+
     <div class="container">
