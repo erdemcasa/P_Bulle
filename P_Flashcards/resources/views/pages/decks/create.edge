@@ -1,0 +1,30 @@
+@component('components/layout', { title: title })
+<h3>
+  {{ title }}
+</h3>
+<form action="{{ route('deck.store') }}" method="POST">
+  {{ csrfField() }}
+
+  <div class="field">
+    <label for="title">Titre</label>
+    <input type="text" id="title" name="title" value="{{ old('title') || '' }}" />
+    @inputError('title')
+    <p class="text-danger">
+      {{ $messages.join(', ') }}
+    </p>
+    @end
+  </div>
+
+  <div class="field">
+    <label for="description">Description</label>
+    <textarea id="description" name="description">{{ old('description') || '' }}</textarea>
+    @inputError('description')
+    <p class="text-danger">
+      {{ $messages.join(', ') }}
+    </p>
+    @end
+  </div>
+
+  <button type="submit">Ajouter</button>
+</form>
+@end

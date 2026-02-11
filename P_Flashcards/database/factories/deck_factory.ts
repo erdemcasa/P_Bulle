@@ -5,7 +5,7 @@ export const DeckFactory = factory
   .define(Deck, async ({ faker }) => {
     return {
       title: faker.book.title(),
-      description: faker.lorem.paragraph(),
+      description: faker.lorem.paragraph(1),
     }
   })
   .build()

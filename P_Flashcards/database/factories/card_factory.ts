@@ -5,8 +5,8 @@ export const CardFactory = factory
   .define(Card, async ({ faker }) => {
     return {
       question: faker.lorem.sentence() + ' ?',
-      answer: faker.lorem.paragraph(),
-      deckId: faker.number.int({ min: 1, max: 20 }),
+      answer: faker.lorem.paragraph(1),
+      deckId: faker.number.int({ min: 1, max: 50 }),
     }
   })
   .build()

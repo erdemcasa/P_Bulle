@@ -1,3 +1,4 @@
+/* eslint-disable @adonisjs/prefer-lazy-controller-import */
 /*
 |--------------------------------------------------------------------------
 | Routes file
@@ -7,8 +8,10 @@
 |
 */
 
-const DecksController = () => import('#controllers/decks_controller')
+import DecksController from '#controllers/decks_controller'
 import router from '@adonisjs/core/services/router'
 
 router.get('/', [DecksController, 'index']).as('home')
-router.get('/decks/:id', [DecksController, 'index']).as('decks')
+
+router.get('/deck/add', [DecksController, 'create']).as('deck.create')
+router.post('/deck/add', [DecksController, 'store']).as('deck.store')

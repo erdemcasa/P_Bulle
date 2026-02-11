@@ -4,6 +4,6 @@ import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
 export default class extends BaseSeeder {
   async run() {
-    await DeckFactory.makeMany(20)
+    await DeckFactory.createMany(50)
   }
 }
