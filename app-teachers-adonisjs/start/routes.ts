@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /*
 |--------------------------------------------------------------------------
 | Le fichier des routes

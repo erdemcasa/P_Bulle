@@ -77,9 +77,9 @@ export default class TeachersController {
   async update({ params, request, session, response }: HttpContext) {
     const { gender, firstname, lastname, nickname, origine, sectionId } =
     await request.validateUsing(teacherValidator)
-    
+
     const teacher = await Teacher.findOrFail(params.id)
-    
+
     teacher.merge({
       gender,
       firstname,
@@ -89,12 +89,12 @@ export default class TeachersController {
       sectionId,
     })
     const teacherUpdated = await teacher.save()
-    
+
     session.flash(
       'success',
       `L'enseignant ${teacherUpdated.lastname} ${teacherUpdated.firstname} a été mis à jour avec succès !`
     )
-    
+
     return response.redirect().toRoute('home')
   }
   /**
