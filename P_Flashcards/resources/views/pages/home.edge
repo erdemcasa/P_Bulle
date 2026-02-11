@@ -13,6 +13,8 @@
         <div>
           <h4>{{ deck.title }}</h4>
           <p>{{ deck.description }}</p>
+
+          <p>{{ deck.$extras.cards_count }}</p>
         </div>
         <a href="/deck/{{ deck.id }}" class="cta-button">Voir le deck</a>
       </div>
