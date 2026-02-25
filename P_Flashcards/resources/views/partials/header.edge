@@ -1,17 +1,30 @@
-
-<header>
+<header class="main-header">
   <div class="container">
     <nav class="navbar">
-        <a href="{{ route('home') }}" class="nav-logo">FLASH67</a>
+      <a href="{{ route('home') }}" class="nav-logo">FLASH67</a>
 
-        <div class="nav-links">
-            <a href="{{ route('home') }}" class="nav-link">Accueil</a>
-            <a href="{{ route('deck.create') }}" class="nav-link">Ajouter un deck</a>
-        </div>
+      <div class="nav-links">
+        <a href="{{ route('home') }}" class="nav-link">Accueil</a>
 
-        <div class="nav-auth">
-            <a href="#" class="login-button">Se connecter</a>
-        </div>
+        <a href="{{ route('decks.create') }}" class="nav-link">Ajouter un deck</a>
+      </div>
+
+      <div class="nav-auth">
+        @if(auth.user)
+        <span class="nav-user">Bonjour, <strong>{{ auth.user.username }}</strong></span>
+        <a href="{{ route('auth.logout') }}"
+          onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout-link">
+          Déconnexion
+        </a>
+
+        <form id="logout-form" action="{{ route('auth.logout') }}" method="POST" style="display: none;">
+          {{ csrfField() }}
+        </form>
+        @else
+        <a href="{{ route('auth.login.show') }}" class="login-button">Se connecter</a>
+        <a href="{{ route('auth.register.show') }}" class="register-link">S'inscrire</a>
+        @end
+      </div>
     </nav>
   </div>
 </header>

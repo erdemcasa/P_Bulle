@@ -1,28 +1,40 @@
-<!DOCTYPE html>
-<html lang="fr">
+@component('components/layout', { title: 'Accueil' })
 
-<body>
-  <div class="container">
-    @component('components/layout', { title: 'Accueil' })
+@if (auth.user)
+<div class="user-bar">
+  <p>Connecté en tant que <strong>{{ auth.user.username }}</strong></p>
 
-    <h3>Decks publiés</h3>
+  <form method="POST" action="{{ route('auth.logout') }}">
+    {{ csrfField() }}
+    <button type="submit">Se déconnecter</button>
+  </form>
+</div>
 
+<hr />
 
-    <div class="deck-grid">
-      @each(deck in decks)
-      <div class="deck-card">
-        <div>
-          <h4>{{ deck.title }}</h4>
-          <p>{{ deck.description }}</p>
-          <p>{{ deck.nbCards }}</p>
-        </div>
-        <a href="/deck/{{ deck.id }}" class="cta-button">Voir le deck</a>
-      </div>
-      @end
+<h3>Decks publiés</h3>
+
+<div class="deck-grid">
+  @each(deck in decks)
+  <div class="deck-card">
+    <div>
+      <h4>{{ deck.title }}</h4>
+      <p>{{ deck.description }}</p>
+      <p>Nombre de cartes : {{ deck.nbCards }}</p>
     </div>
-
-    @endcomponent
+    <a href="{{ route('decks.show', { id: deck.id }) }}" class="cta-button">Voir le deck</a>
   </div>
-</body>
+  @else
+  <p>Aucun deck n'a été publié pour le moment.</p>
+  @end
+</div>
 
-</html>
+@else
+<div class="guest-actions">
+  <p>Veuillez vous connecter pour voir les decks.</p>
+  <a href="{{ route('auth.register.show') }}">S'inscrire</a>
+  <a href="{{ route('auth.login.show') }}">Se connecter</a>
+</div>
+@end
+
+@end

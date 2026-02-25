@@ -6,12 +6,10 @@
   @if(cards.length > 0)
 
     @each(card in cards)
-      <div>
         <p>
-          {{ card.id }} {{ card.question }}
+          {{ card.question }}
         </p>
-      </div>
-    @end
+    @endeach
 
   @else
     <p>
