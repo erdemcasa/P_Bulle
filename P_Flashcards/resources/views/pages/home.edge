@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <body>
   <div class="container">
     @component('components/layout', { title: 'Accueil' })
@@ -13,8 +14,7 @@
         <div>
           <h4>{{ deck.title }}</h4>
           <p>{{ deck.description }}</p>
-
-          <p>{{ deck.$extras.cards_count }}</p>
+          <p>{{ deck.nbCards }}</p>
         </div>
         <a href="/deck/{{ deck.id }}" class="cta-button">Voir le deck</a>
       </div>
@@ -24,4 +24,5 @@
     @endcomponent
   </div>
 </body>
+
 </html>

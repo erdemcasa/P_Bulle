@@ -1,3 +1,4 @@
+import Card from '#models/card'
 import Deck from '#models/deck'
 import { deckValidator } from '#validators/deck'
 import type { HttpContext } from '@adonisjs/core/http'
@@ -8,10 +9,7 @@ export default class DecksController {
    * Display a list of resource aaa
    */
   async index({ view }: HttpContext) {
-    const decks = await Deck.query()
-      .select('*')
-      .select(db.from('cards').count('*').whereRaw('cards.deck_id = decks.id').as('cards_count'))
-      .orderBy('title', 'asc')
+    const decks = await Deck.query().select('*').orderBy('title', 'asc').withCount('cards')
 
     return view.render('pages/home', { decks })
   }
@@ -32,5 +30,12 @@ export default class DecksController {
     session.flash('success', `Le deck ${deck.title} a été ajouté avec succès !`)
 
     return response.redirect().toRoute('home')
+  }
+
+  async show({ params, view }: HttpContext) {
+    const deck = await Deck.query().where('id', params.id).firstOrFail()
+    const cards = await Card.query().where('deck_id', params.id)
+
+    return view.render('pages/decks/show', { deck, cards })
   }
 }

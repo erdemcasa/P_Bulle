@@ -4,6 +4,6 @@ import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
 export default class extends BaseSeeder {
   async run() {
-    await CardFactory.createMany(100000)
+    await CardFactory.createMany(1000)
   }
 }

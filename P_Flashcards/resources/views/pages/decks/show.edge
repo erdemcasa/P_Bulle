@@ -1,0 +1,21 @@
+@component('components/layout', { title: title })
+  <h3>
+    {{ deck.title }}
+  </h3>
+
+  @if(cards.length > 0)
+
+    @each(card in cards)
+      <div>
+        <p>
+          {{ card.id }} {{ card.question }}
+        </p>
+      </div>
+    @end
+
+  @else
+    <p>
+      Aucune cartes n'est disponoble
+    </p>
+  @end
+@end
