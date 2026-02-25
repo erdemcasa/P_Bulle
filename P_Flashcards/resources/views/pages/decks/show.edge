@@ -1,19 +1,44 @@
 @component('components/layout', { title: title })
-  <h3>
-    {{ deck.title }}
-  </h3>
+<div class="deck-page">
 
-  @if(cards.length > 0)
+  <div class="deck-header-row">
+    <div class="deck-titles">
+      <h1>{{ deck.title }}</h1>
+      <p>{{ cards.length }} cartes au total</p>
+    </div>
+    <a href="{{ route('cards.create', { deckId: deck.id }) }}" class="btn-add-inline">
+      + Ajouter une carte
+    </a>
+  </div>
 
+  <div class="cards-grid">
+    @if(cards.length > 0)
     @each(card in cards)
-        <p>
-          {{ card.question }}
-        </p>
-    @endeach
+    <div class="study-card">
+      <div class="card-actions">
 
-  @else
-    <p>
-      Aucune cartes n'est disponoble
-    </p>
-  @end
+        <a href="#" class="action-link">Éditer</a>
+        <button class="action-link delete">Suppr.</button>
+      </div>
+
+      <div class="card-content">
+        <div class="question-zone">
+          <span class="label">Question</span>
+          <p>{{ card.question }}</p>
+        </div>
+
+        <div class="answer-zone" onclick="this.classList.toggle('revealed')">
+          <span class="label">Réponse (clique pour voir)</span>
+          <div class="answer-text">
+            {{ card.answer || 'Pas de réponse définie' }}
+          </div>
+        </div>
+      </div>
+    </div>
+    @endeach
+    @else
+    <p class="empty">Aucune carte</p>
+    @endif
+  </div>
+</div>
 @end

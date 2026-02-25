@@ -1,13 +1,6 @@
-@component('components/layout', { title: 'Accueil' })
-
-@if (auth.user)
+@layout({ title: 'Accueil' })
 <div class="user-bar">
   <p>Connecté en tant que <strong>{{ auth.user.username }}</strong></p>
-
-  <form method="POST" action="{{ route('auth.logout') }}">
-    {{ csrfField() }}
-    <button type="submit">Se déconnecter</button>
-  </form>
 </div>
 
 <hr />
@@ -17,24 +10,13 @@
 <div class="deck-grid">
   @each(deck in decks)
   <div class="deck-card">
-    <div>
-      <h4>{{ deck.title }}</h4>
-      <p>{{ deck.description }}</p>
-      <p>Nombre de cartes : {{ deck.nbCards }}</p>
-    </div>
-    <a href="{{ route('decks.show', { id: deck.id }) }}" class="cta-button">Voir le deck</a>
+    <h4>{{ deck.title }}</h4>
+    <p>{{ deck.description }}</p>
+    <p><strong>{{ deck.nbCards }}</strong> cartes</p>
+    <a href="{{ route('decks.show', { id: deck.id }) }}">Voir le deck</a>
   </div>
   @else
-  <p>Aucun deck n'a été publié pour le moment.</p>
+  <p>Aucun deck disponible.</p>
   @end
 </div>
-
-@else
-<div class="guest-actions">
-  <p>Veuillez vous connecter pour voir les decks.</p>
-  <a href="{{ route('auth.register.show') }}">S'inscrire</a>
-  <a href="{{ route('auth.login.show') }}">Se connecter</a>
-</div>
-@end
-
 @end

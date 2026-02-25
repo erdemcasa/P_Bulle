@@ -8,10 +8,8 @@ export default class DecksController {
   /**
    * Display a list of resource aaa
    */
-  async index({ view, auth }: HttpContext) {
-    await auth.check()
-    
-    const decks = await Deck.query().select('*').orderBy('title', 'asc').withCount('cards')
+  async index({ view }: HttpContext) {
+    const decks = await Deck.query().select('*').orderBy('created_at', 'desc').withCount('cards')
 
     return view.render('pages/home', { decks })
   }
