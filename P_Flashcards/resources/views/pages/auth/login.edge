@@ -1,35 +1,32 @@
 @layout({ title: 'Login' })
-<h1>Se connecter</h1>
+<div class="container">
 
-<form method="POST" action="{{ route('auth.login.store') }}">
-  {{ csrfField() }}
+  <h3>Se connecter</h3>
 
-  <label>
+  <form method="POST" action="{{ route('auth.login.store') }}">
+    {{ csrfField() }}
 
-    <span>Email</span>
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" value="{{ old('email') || '' }}" placeholder="votre@email.com" required />
+      @inputError('email')
+        <p class="text-danger">{{ $messages.join(', ') }}</p>
+      @end
+    </div>
 
-    <input type="email" name="email" value="{{ old('email') || '' }}" />
+    <div class="field">
+      <label for="password">Mot de passe</label>
+      <input type="password" id="password" name="password" placeholder="••••••••" required />
+      @inputError('password')
+        <p class="text-danger">{{ $messages.join(', ') }}</p>
+      @end
+    </div>
 
-    @inputError('email')
-    {{ $messages.join(', ')}}
-    @end
-  </label>
+    <button type="submit">Se connecter</button>
 
-  <label>
-
-    <span>Mot de passe</span>
-
-    <input type="password" name="password"/>
-
-    @inputError('password')
-    {{ $messages.join(', ')}}
-    @end
-  </label>
-
-  <button type="submit">Se connecter</button>
-
-  <p>Pas de compte ? <a href="{{ route('auth.register.show') }}">S'inscrire ici</a></p>
-
-</form>
-
+    <p style="text-align: center; margin-top: 20px; font-size: 0.9rem;">
+      Pas de compte ? <a href="{{ route('auth.register.show') }}" style="color: #5d5fef; font-weight: 600;">S'inscrire ici</a>
+    </p>
+  </form>
+</div>
 @end

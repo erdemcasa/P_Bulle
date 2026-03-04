@@ -13,7 +13,6 @@
 
       <div class="nav-auth">
         @if(auth.user)
-        <span class="nav-user">Utilisateur : <strong>{{ auth.user.username }}</strong> - <strong>{{ auth.user.id }}</strong></span>
         <a href="{{ route('auth.logout') }}"
           onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout-link">
           Déconnexion

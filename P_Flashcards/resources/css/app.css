@@ -161,9 +161,11 @@ form {
 }
 
 .field label {
+  display: block;
+  margin-bottom: 8px;
   font-weight: 600;
-  color: #333;
-  font-size: 0.95rem;
+  color: #475569;
+  font-size: 0.9rem;
 }
 
 .field input,
@@ -191,17 +193,29 @@ form {
   box-shadow: 0 0 0 4px rgba(93, 95, 239, 0.1);
 }
 
-/* Message d'erreur */
 .text-danger {
-  color: #e63946;
-  font-size: 0.85rem;
-  margin: 5px 0 0 0;
+  color: #ef4444;
+  font-size: 0.8rem;
+  margin-top: 6px;
   font-weight: 500;
-  display: flex;
-  align-items: center;
 }
 
+.field input {
+  width: 100%; /* S'assure que l'input prend toute la largeur */
+  box-sizing: border-box; /* Évite que le padding ne dépasse */
+  border: 1.5px solid #e2e8f0;
+}
 
+/* Style pour les liens de redirection en bas de formulaire */
+form p a {
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+form p a:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
 
 /* Bouton de soumission (Reprend le style du bouton login) */
 form button[type="submit"] {

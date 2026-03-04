@@ -14,16 +14,20 @@ export const createCardValidator = (cardId?: number) => {
         .trim()
         .minLength(1)
         .unique(async (db, value) => {
+          // requete qui verifie la valeur entrée dans question de la table cards
           const query = db.from('cards').where('question', value)
-
+          // vérifie si on modifie une carte tout en exluant la carte actuelle, pour eviter les erreurs qui dis que cest unique
           if (cardId) {
+
             query.whereNot('id', cardId)
           }
-
+          //execution de la requete
           const card = await query.first()
+          // retprne true si aucune carte a cette question, sinon false
           return !card
         }),
       answer: vine
+      // MEME LOGIQUE QUE EN HAUT
         .string()
         .trim()
         .minLength(1)
