@@ -1,5 +1,6 @@
 import Card from '#models/card'
 import Deck from '#models/deck'
+import User from '#models/user'
 import { deckValidator } from '#validators/deck'
 import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
@@ -13,6 +14,20 @@ export default class DecksController {
 
     return view.render('pages/home', { decks })
   }
+
+
+  /**
+   * Afifchage de la liste des decjs de l'user connectée
+   */
+  async showMine({ auth, view }: HttpContext) {
+    const decks = await Deck.query()
+        .where('id', auth.user!.id)
+        .withCount('cards')
+        .orderBy('createdAt', 'desc')
+
+    return view.render('pages/home', { decks })
+  }
+
   /**
    * Display form to create a new record
    */
@@ -33,9 +48,10 @@ export default class DecksController {
   }
 
   async show({ params, view }: HttpContext) {
-    const deck = await Deck.query().where('id', params.id).firstOrFail()
-    const cards = await Card.query().where('deck_id', params.id)
+  const deck = await Deck.query().where('id', params.id).preload('user').firstOrFail()
 
-    return view.render('pages/decks/show', { deck, cards })
-  }
+  const cards = await Card.query().where('deck_id', deck.id)
+
+  return view.render('pages/decks/show', { deck, user: deck.user, cards })
+}
 }

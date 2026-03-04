@@ -16,12 +16,23 @@ export default class CardsController {
   }
   async store({ params, request, session, response }: HttpContext) {
     const { question, answer } = await request.validateUsing(cardValidator)
-    
+
     const deck = await Deck.findOrFail(params.deckId)
     await deck.related('cards').create({ question, answer })
 
     session.flash('success', `La carte a été ajoutée au deck ${deck.title} !`)
     return response.redirect().toRoute('decks.show', { id: deck.id })
   }
+
+  async destroy ({ params, session, response }: HttpContext) {
+    const card = await Card.findOrFail(params.id)
+    const deckId = card.deckId
+
+    await card.delete()
+
+    session.flash('success', 'La carte a été supprimée avec succès !')
+    return response.redirect().toRoute('decks.show', { id: deckId })
+  }
+
 }
 

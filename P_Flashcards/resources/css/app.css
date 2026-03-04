@@ -48,8 +48,13 @@ body {
 .nav-auth {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   flex: 1;
 }
+
+
+
+
 
 .login-button {
   background-color: #5d5fef;
@@ -221,31 +226,110 @@ form button[type="submit"]:active {
 }
 
 
+.nav-user {
+  margin-right: 20px;
+}
+
+.logout-link {
+  background-color: #ef4444;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
 
 
-/* --- Styles des Cartes --- */
+.back-to-home {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 30px;
 
+  text-decoration: none;
+
+  color: #5d5fef;
+  font-weight: 600;
+  font-size: 0.95rem;
+
+  transition: opacity 0.2s ease;
+}
+
+.back-to-home::before {
+  content: "←";
+  margin-right: 8px;
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+
+.back-to-home:hover {
+  opacity: 0.8;
+  text-decoration: none;
+}
+
+.back-to-home:hover::before {
+  transform: translateX(-4px);
+}
 
 
 .deck-header-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end; /* Aligné en bas pour un look plus pro */
   margin-bottom: 40px;
-  border-bottom: 2px solid #eef2ff;
-  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f2f5;
+  padding-bottom: 24px;
+}
+
+.deck-category {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: #6366f1; /* Une touche de bleu moderne */
+  font-weight: 700;
 }
 
 .deck-titles h1 {
-  margin: 0;
-  font-size: 2rem;
-  color: #1a1a1a;
+  margin: 8px 0;
+  font-size: 2.5rem;
+  color: #111827;
+  line-height: 1.1;
 }
 
-.deck-titles p {
-  margin: 5px 0 0;
-  color: #666;
-  font-weight: 500;
+.deck-metadata {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.deck-divider {
+  color: #d1d5db;
+}
+
+.deck-count {
+  background: #f3f4f6;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+/* Petit bonus : le bouton d'action */
+.btn-study {
+  background: #6366f1;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s;
+}
+
+.btn-study:hover {
+  transform: translateY(-2px);
+  background: #4f46e5;
 }
 
 .btn-add-inline {
@@ -287,33 +371,55 @@ form button[type="submit"]:active {
 }
 
 .card-actions {
-  position: absolute;
-  top: 15px;
-  right: 15px;
   display: flex;
-  gap: 10px;
-  z-index: 10;
+  align-items: center;
+  gap: 12px; 
+  padding: 4px 0;
 }
 
 .action-link {
-  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  font-family: inherit;
+  font-size: 0.7rem;
   font-weight: 700;
-  color: #a0a4b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #94a3b8;
   text-decoration: none;
   background: none;
   border: none;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.action-divider {
+  width: 1px;
+  height: 10px;
+  background-color: #e2e8f0;
 }
 
 .action-link:hover {
-  color: #5d5fef;
+  color: #4f46e5;
+  transform: translateY(-1px);
 }
 
 .action-link.delete:hover {
   color: #ef4444;
 }
 
+/* État actif (clic) */
+.action-link:active {
+  transform: translateY(0);
+  opacity: 0.7;
+}
+
+.hidden {
+  display: none;
+}
 .card-content {
   display: flex;
   flex-direction: column;

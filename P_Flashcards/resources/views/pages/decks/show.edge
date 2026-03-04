@@ -1,25 +1,56 @@
 @component('components/layout', { title: title })
 <div class="deck-page">
 
+  <p class="back-to-home">
+    <a href="{{ route('home') }}">Retour à l'accueil</a>
+  </p>
+
   <div class="deck-header-row">
     <div class="deck-titles">
+      <span class="deck-category">Deck Collection</span>
       <h1>{{ deck.title }}</h1>
-      <p>{{ cards.length }} cartes au total</p>
+
+      <div class="deck-metadata">
+        <span class="deck-author">
+          Créée par <strong>{{ user.username }}</strong>
+        </span>
+        <span class="deck-divider">•</span>
+        <span class="deck-count">
+          <strong>{{ cards.length }}</strong> cartes au total
+        </span>
+      </div>
     </div>
+
+    @if(auth.user && auth.user.id === deck.userId)
     <a href="{{ route('cards.create', { deckId: deck.id }) }}" class="btn-add-inline">
       + Ajouter une carte
     </a>
+    @endif
   </div>
 
   <div class="cards-grid">
     @if(cards.length > 0)
     @each(card in cards)
     <div class="study-card">
-      <div class="card-actions">
 
+      @if(auth.user && auth.user.id === deck.userId)
+      <div class="card-actions">
         <a href="#" class="action-link">Éditer</a>
-        <button class="action-link delete">Suppr.</button>
+
+        <span class="action-divider"></span>
+
+        <form id="delete-card-{{ card.id }}" action="{{ route('cards.destroy', { id: card.id }) }}?_method=DELETE"
+          method="POST" class="hidden">
+          {{ csrfField() }}
+        </form>
+
+        <a href="#" class="action-link delete"
+          onclick="if(confirm('Supprimer cette carte ?')) { document.getElementById('delete-card-{{ card.id }}').submit(); } return false;">
+          Suppr
+        </a>
+
       </div>
+      @endif
 
       <div class="card-content">
         <div class="question-zone">
@@ -28,9 +59,9 @@
         </div>
 
         <div class="answer-zone" onclick="this.classList.toggle('revealed')">
-          <span class="label">Réponse (clique pour voir)</span>
+          <span class="label">Réponse (cliquez pour voir)</span>
           <div class="answer-text">
-            {{ card.answer || 'Pas de réponse définie' }}
+            {{ card.answer || 'pas de reponse' }}
           </div>
         </div>
       </div>
