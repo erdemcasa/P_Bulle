@@ -310,7 +310,7 @@ form button[type="submit"]:active {
 }
 
 .deck-count {
-  background: #f3f4f6;
+  background: #e0e3ff;
   padding: 4px 12px;
   border-radius: 20px;
   font-size: 0.85rem;
@@ -373,7 +373,7 @@ form button[type="submit"]:active {
 .card-actions {
   display: flex;
   align-items: center;
-  gap: 12px; 
+  gap: 12px;
   padding: 4px 0;
 }
 
@@ -385,7 +385,7 @@ form button[type="submit"]:active {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #94a3b8;
+  color: #e9ebff;
   text-decoration: none;
   background: none;
   border: none;

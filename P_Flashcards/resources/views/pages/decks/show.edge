@@ -2,7 +2,7 @@
 <div class="deck-page">
 
   <p class="back-to-home">
-    <a href="{{ route('home') }}">Retour à l'accueil</a>
+    <a href="javascript:window.history.back()">Retour à l'accueil</a>
   </p>
 
   <div class="deck-header-row">
@@ -35,7 +35,7 @@
 
       @if(auth.user && auth.user.id === deck.userId)
       <div class="card-actions">
-        <a href="#" class="action-link">Éditer</a>
+        <a href="{{ route('cards.edit', { id: card.id }) }}" class="action-link">Éditer</a>
 
         <span class="action-divider"></span>
 

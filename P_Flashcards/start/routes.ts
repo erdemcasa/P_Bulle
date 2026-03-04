@@ -29,6 +29,9 @@ router.group(() => {
   router.post('/deck/:deckId/cards/add', [CardsController, 'store']).as('cards.store')
 
   router.delete('/cards/:id', [CardsController, 'destroy']).as('cards.destroy')
+  router.get('/cards/edit/:id', [CardsController, 'edit']).as('cards.edit')
+  router.post('/cards/edit/:id', [CardsController, 'update']).as('cards.update')
 
+  router.get('/decks/mine', [DecksController, 'showMine']).as('decks.mine')
 
 }).use(middleware.auth())

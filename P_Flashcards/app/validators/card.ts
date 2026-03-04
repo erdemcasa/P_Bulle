@@ -3,21 +3,40 @@ import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 vine.messagesProvider = new SimpleMessagesProvider({
   'minLength': 'Le champ {{ field }} doit faire au moins {{ min }} caractères de long',
   'required': 'Le champ {{ field }} est requis.',
-  'unique': 'Cette question existe déjà .',
+  'unique': 'Cette valeur existe déjà.',
 })
 
-const cardValidator = vine.compile(
-  vine.object({
-    question: vine
-      .string()
-      .trim()
-      .minLength(1)
-      .unique(async (db, value) => {
-        const card = await db.from('cards').where('question', value).first()
-        return !card
-      }),
-    answer: vine.string().trim().minLength(1),
-  })
-)
+export const createCardValidator = (cardId?: number) => {
+  return vine.compile(
+    vine.object({
+      question: vine
+        .string()
+        .trim()
+        .minLength(1)
+        .unique(async (db, value) => {
+          const query = db.from('cards').where('question', value)
 
-export { cardValidator }
+          if (cardId) {
+            query.whereNot('id', cardId)
+          }
+
+          const card = await query.first()
+          return !card
+        }),
+      answer: vine
+        .string()
+        .trim()
+        .minLength(1)
+        .unique(async (db, value) => {
+          const query = db.from('cards').where('answer', value)
+
+          if (cardId) {
+            query.whereNot('id', cardId)
+          }
+
+          const card = await query.first()
+          return !card
+        }),
+    })
+  )
+}

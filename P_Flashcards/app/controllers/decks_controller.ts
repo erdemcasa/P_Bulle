@@ -21,7 +21,7 @@ export default class DecksController {
    */
   async showMine({ auth, view }: HttpContext) {
     const decks = await Deck.query()
-        .where('id', auth.user!.id)
+        .where('userId', auth.user!.id)
         .withCount('cards')
         .orderBy('createdAt', 'desc')
 
@@ -37,10 +37,10 @@ export default class DecksController {
     return view.render('pages/decks/create', { title: "Ajout d'un deck", decks })
   }
 
-  async store({ request, session, response }: HttpContext) {
+  async store({ request, session, response, auth }: HttpContext) {
     const { title, description } = await request.validateUsing(deckValidator)
 
-    const deck = await Deck.create({ title, description })
+    const deck = await Deck.create({ title, description, userId: auth.user!.id })
 
     session.flash('success', `Le deck ${deck.title} a été ajouté avec succès !`)
 
