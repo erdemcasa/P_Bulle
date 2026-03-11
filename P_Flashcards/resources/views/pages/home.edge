@@ -8,12 +8,13 @@
 
 <div class="deck-grid">
   @each(deck in decks)
-  <div class="deck-card">
-    <h4>{{ deck.title }}</h4>
-    <p>{{ deck.description }}</p>
-    <p><strong>{{ deck.nbCards }}</strong> cartes</p>
-    <a href="{{ route('decks.show', { id: deck.id }) }}">Voir le deck</a>
-  </div>
+    <div class="deck-card">
+      <h4>{{ deck.title }}</h4>
+      <p>{{ deck.description }}</p>
+      <p><strong>{{ deck.nbCards }}</strong> cartes</p>
+      <p>Catégorie : <strong>{{ deck.category.id }}</strong> - <strong>{{ deck.category.name }}</strong></p>
+      <a href="{{ route('decks.show', { id: deck.id }) }}">Voir le deck</a>
+    </div>
   @else
   <p>Aucun deck disponible.</p>
   @end

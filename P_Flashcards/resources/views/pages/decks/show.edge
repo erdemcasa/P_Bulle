@@ -2,7 +2,7 @@
 <div class="deck-page">
 
   <p class="back-to-home">
-    <a href="javascript:window.history.back()">Retour à l'accueil</a>
+    <a href="{{ route('/') }}">Retour à l'accueil</a>
   </p>
 
   <div class="deck-header-row">
@@ -19,12 +19,16 @@
           <strong>{{ cards.length }}</strong> cartes au total
         </span>
       </div>
+        <span class="deck-author">Catégorie  <strong>{{ deck.category.name }}</strong></span>
     </div>
 
     @if(auth.user && auth.user.id === deck.userId)
-    <a href="{{ route('cards.create', { deckId: deck.id }) }}" class="btn-add-inline">
-      + Ajouter une carte
-    </a>
+      <a href="{{ route('cards.create', { deckId: deck.id }) }}" class="btn-add-inline">
+        + Ajouter une carte
+      </a>
+      <a href="{{ route('decks.edit', { id: deck.id }) }}" class="btn-add-inlinea">
+        Modifier
+      </a>
     @endif
   </div>
 

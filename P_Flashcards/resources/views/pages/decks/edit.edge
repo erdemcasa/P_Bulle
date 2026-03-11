@@ -1,38 +1,35 @@
 @component('components/layout', { title: title })
-<h3>
-  {{ title }}
-</h3>
-<form action="{{ route('decks.store') }}" method="POST">
+<h3>{{ title }}</h3>
+
+<form action="{{ route('decks.update', { id: deck.id }) }}" method="POST">
   {{ csrfField() }}
 
   <div class="field">
     <label for="title">Titre</label>
-    <input type="text" id="title" name="title" value="{{ old('title') || '' }}" />
+    <input type="text" id="title" name="title" value="{{ old('title') || deck.title }}" />
     @inputError('title')
-    <p class="text-danger">
-      {{ $messages.join(', ') }}
-    </p>
+    <p class="text-danger">{{ $messages.join(', ') }}</p>
     @end
   </div>
 
   <div class="field">
     <label for="description">Description</label>
-    <textarea id="description" name="description">{{ old('description') || '' }}</textarea>
+    <textarea id="description" name="description">{{ old('description') || deck.description }}</textarea>
     @inputError('description')
-    <p class="text-danger">
-      {{ $messages.join(', ') }}
-    </p>
+    <p class="text-danger">{{ $messages.join(', ') }}</p>
     @end
   </div>
+
 
   <div class="field">
     <label for="categoryId">Catégorie</label>
     <select name="categoryId" id="categoryId">
-      <option value="">
-        -- Sélectionner une catégorie --
+      <option value="{{ category.id }}">
+        {{ category.id }} - {{ category.name }}
       </option>
       @each(category in categories)
-      <option value="{{ category.id }}" {{ old('categoryId')==category.id ? 'selected' : '' }}>
+      <option value="{{ category.id }}"
+        {{ old('categoryId')==category.id ? 'selected' : '' }}>
         {{ category.id }} - {{ category.name }}
       </option>
       @end
@@ -44,6 +41,6 @@
     @end
   </div>
 
-  <button type="submit">Ajouter</button>
+  <button type="submit">Mettre à jour</button>
 </form>
 @end

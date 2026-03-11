@@ -1,6 +1,7 @@
 import router from '@adonisjs/core/services/router'
 import { middleware } from '#start/kernel'
 import CardsController from '#controllers/cards_controller'
+import CategoriesController from '#controllers/categories_controller'
 
 const DecksController = () => import('#controllers/decks_controller')
 const RegisterController = () => import('#controllers/auth/register_controller')
@@ -24,6 +25,13 @@ router.group(() => {
   router.get('/deck/add', [DecksController, 'create']).as('decks.create')
   router.post('/deck/add', [DecksController, 'store']).as('decks.store')
   router.get('/deck/:id', [DecksController, 'show']).as('decks.show')
+  router.get('/deck/edit/:id', [DecksController, 'edit']).as('decks.edit')
+  router.post('/deck/edit/:id', [DecksController, 'update']).as('decks.update')
+
+  router.get('/categories', [CategoriesController, 'index']).as('categories')
+  router.get('/category/add', [CategoriesController, 'create']).as('category.create')
+  router.post('/category/add', [CategoriesController, 'store']).as('category.store')
+  router.get('/category/:id', [CategoriesController, 'show']).as('category.show')
 
   router.get('/deck/:deckId/cards/add', [CardsController, 'create']).as('cards.create')
   router.post('/deck/:deckId/cards/add', [CardsController, 'store']).as('cards.store')

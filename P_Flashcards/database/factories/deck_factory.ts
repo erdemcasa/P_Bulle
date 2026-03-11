@@ -6,7 +6,8 @@ export const DeckFactory = factory
     return {
       title: faker.book.title(),
       description: faker.lorem.paragraph(1),
-      userId: faker.number.int({ min: 1, max: 10 })
+      userId: faker.number.int({ min: 1, max: 10 }),
+      categoryId: faker.number.int({ min: 1, max: 20 })
     }
   })
   .build()

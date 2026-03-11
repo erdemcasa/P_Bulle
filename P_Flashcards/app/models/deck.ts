@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column, hasMany, hasOne } from '@adonisjs/lucid/orm'
 import Card from './card.js'
-import type { BelongsTo, HasMany  } from '@adonisjs/lucid/types/relations'
+import type { BelongsTo, HasMany, HasOne  } from '@adonisjs/lucid/types/relations'
 import User from './user.js'
+import Category from './category.js'
 
 export default class Deck extends BaseModel {
   @column({ isPrimary: true })
@@ -19,6 +20,14 @@ export default class Deck extends BaseModel {
   @column()
   declare userId: Number
 
+
+  @belongsTo(() => Category)
+  declare category: BelongsTo<typeof Category>
+  @column()
+  declare categoryId: Number
+
+
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
@@ -29,13 +38,19 @@ export default class Deck extends BaseModel {
   @hasMany(() => Card)
   declare cards: HasMany<typeof Card>
 
+
   // declaration de cards_count en tant que number pour le nombre de cartes
   declare $extras: {
-    cards_count: number
+    cards_count: number,
+    category_name: string
   }
 
   // un get qui permet d'acceder au nombre de cartes grace a nbCards, un return qui affiche le nombre de cartes ou 0.
   get nbCards() {
     return this.$extras.cards_count || 0
+  }
+
+  get catName() {
+    return this.$extras.category_name || 'erreur'
   }
 }
