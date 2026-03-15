@@ -10,20 +10,23 @@ export default class DecksController {
    * Display a list of resource aaa
    */
   async index({ view }: HttpContext) {
-    const decks = await Deck.query().select('*').orderBy('created_at', 'desc').withCount('cards')
+    const decks = await Deck.query()
+      .preload('category')
+      .select('*')
+      .orderBy('created_at', 'desc')
+      .withCount('cards')
 
     return view.render('pages/home', { decks })
   }
-
 
   /**
    * Afifchage de la liste des decjs de l'user connectée
    */
   async showMine({ auth, view }: HttpContext) {
     const decks = await Deck.query()
-        .where('userId', auth.user!.id)
-        .withCount('cards')
-        .orderBy('createdAt', 'desc')
+      .where('userId', auth.user!.id)
+      .withCount('cards')
+      .orderBy('createdAt', 'desc')
 
     return view.render('pages/home', { decks })
   }

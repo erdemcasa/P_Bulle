@@ -12,6 +12,7 @@
     <h4>{{ deck.title }}</h4>
     <p>{{ deck.description }}</p>
     <p><strong>{{ deck.nbCards }}</strong> cartes</p>
+    <p>Catégorie <strong>{{ deck.category.name }}</strong></p>
     <a href="{{ route('decks.show', { id: deck.id }) }}">Voir le deck</a>
   </div>
   @else
