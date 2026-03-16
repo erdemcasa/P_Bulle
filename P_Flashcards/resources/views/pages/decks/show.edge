@@ -19,17 +19,36 @@
           <strong>{{ cards.length }}</strong> cartes au total
         </span>
       </div>
-        <span class="deck-author">Catégorie  <strong>{{ deck.category.name }}</strong></span>
+      <span class="deck-author">Catégorie <strong>{{ deck.category.name }}</strong></span>
     </div>
 
-    @if(auth.user && auth.user.id === deck.userId)
+    <div class="deck-actions">
+      @if(cards.length > 0)
+      <a href="{{ route('decks.play', { id: deck.id }) }}" class="btn-add-inline"
+        style="background-color: #4CAF50; color: white; margin-right: 8px;">
+        Exercer le deck
+      </a>
+      @endif
+
+      @if(auth.user && auth.user.id === deck.userId)
       <a href="{{ route('cards.create', { deckId: deck.id }) }}" class="btn-add-inline">
         + Ajouter une carte
       </a>
       <a href="{{ route('decks.edit', { id: deck.id }) }}" class="btn-add-inlinea">
         Modifier
       </a>
-    @endif
+
+      <form id="delete-deck-{{ deck.id }}" action="{{ route('decks.destroy', { id: deck.id }) }}?_method=DELETE"
+        method="POST" class="hidden">
+        {{ csrfField() }}
+      </form>
+
+      <a href="#" class="logout-link" style="margin-left: 8px; vertical-align: middle;"
+        onclick="if(confirm('Etes vous sur de tout supprime rainsi que les cartes `?')) { document.getElementById('delete-deck-{{ deck.id }}').submit(); } return false;">
+        Supprimer le deck
+      </a>
+      @endif
+    </div>
   </div>
 
   <div class="cards-grid">

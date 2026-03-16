@@ -1,0 +1,22 @@
+@component('components/layout', { title: "Session terminée" })
+<div class="deck-page" style="text-align: center; padding-top: 50px;">
+
+  <div class="study-card" style="max-width: 500px; margin: 0 auto; padding: 40px;">
+    <span class="deck-category">Terminé !</span>
+    <h1>Score Final</h1>
+
+    <div style="font-size: 4rem; font-weight: bold; margin: 20px 0; color: #4CAF50;">
+      {{ score }} <span style="font-size: 2rem; color: #666;">/ {{ total }}</span>
+    </div>
+
+    <p style="margin-bottom: 30px; color: #666;">
+      {{ score === total ? 'Vous avez tout resusi !' : 'continuer a vous entrainer !' }}
+    </p>
+
+    <a href="{{ route('/') }}" class="btn-add-inline" style="display: block; text-decoration: none;">
+      OK
+    </a>
+  </div>
+
+</div>
+@end

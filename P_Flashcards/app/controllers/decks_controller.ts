@@ -63,14 +63,22 @@ export default class DecksController {
   }
 
 
-  async destroy ({ params, session, response }: HttpContext) {
-    const card = await Card.findOrFail(params.id)
-    const deckId = card.deckId
 
-    await card.delete()
 
-    session.flash('success', 'La carte a été supprimée avec succès !')
-    return response.redirect().toRoute('decks.show', { id: deckId })
+  async destroy({ params, session, response, auth }: HttpContext) {
+    const deck = await Deck.findOrFail(params.id)
+
+    if (deck.userId !== auth.user!.id) {
+      session.flash('error', 'Action non autorisé')
+      return response.redirect().back()
+    }
+
+    await Card.query().where('deck_id', deck.id).delete()
+
+    await deck.delete()
+
+    session.flash('success', `Le deck "${deck.title}" et toutes ses cartes ont ete supprimeé `)
+    return response.redirect().toRoute('home')
   }
 
   async edit({ params, view }: HttpContext) {
@@ -104,4 +112,40 @@ export default class DecksController {
 
     return response.redirect().toRoute('decks.show', { id: deck.id })
   }
+
+async play({ params, request, view }: HttpContext) {
+  const deck = await Deck.query()
+    .where('id', params.id)
+    .preload('cards')
+    .firstOrFail()
+
+  const cards = deck.cards
+
+  const page = request.input('page', 0)
+  const step = request.input('step', 'question')
+  const score = request.input('score', 0)
+
+  if (page >= cards.length) {
+    return view.render('pages/decks/finish', {
+      deck,
+      score,
+      total: cards.length
+    })
+  }
+
+  const currentCard = cards[page]
+  if (!currentCard) {
+    return view.render('pages/decks/finish', { deck, score, total: cards.length })
+  }
+
+  return view.render('pages/decks/play', {
+    deck,
+    card: currentCard,
+    page,
+    step,
+    score,
+    total: cards.length
+  })
+}
+
 }

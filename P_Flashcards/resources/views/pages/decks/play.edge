@@ -1,0 +1,55 @@
+@component('components/layout', { title: "Exercice : " + deck.title })
+<div class="deck-page" style="padding-top: 0; margin-top: -10px;">
+
+  <div class="deck-header-row" style="margin-bottom: 8px; flex-direction: column; align-items: flex-start; gap: 2px;">
+    <div class="deck-titles">
+      <h1 style="font-size: 1.1rem; margin: 0; display: inline-block;">{{ deck.title }}</h1>
+      <span style="font-size: 0.8rem; color: #666; margin-left: 5px;">
+        ({{ page + 1 }}/{{ total }}) • Score: <strong>{{ score }}</strong>
+      </span>
+    </div>
+    <a href="{{ route('decks.show', { id: deck.id }) }}" style="font-size: 0.75rem; color: #dc3545; text-decoration: none;">X Abandonner</a>
+  </div>
+
+  <div class="cards-grid" style="grid-template-columns: 1fr; max-width: 450px; margin: 0 auto;">
+    <div class="study-card" style="margin: 0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+      <div class="card-content" style="padding: 12px;">
+
+        <div class="question-zone" style="text-align: center; padding: 10px 0;">
+          <span class="label" style="font-size: 0.7rem; text-transform: uppercase; opacity: 0.6;">Question</span>
+          <p style="font-size: 1.1rem; margin: 5px 0; font-weight: 600; line-height: 1.2;">
+            {{ card.question }}
+          </p>
+        </div>
+
+        @if(step === 'question')
+          <div class="answer-zone"
+               style="cursor: pointer; background: #f4f4f4; text-align: center; padding: 15px; border-radius: 6px; border: 1px dashed #ccc; margin-top: 10px;"
+               onclick="window.location.href='{{ route('decks.play', { id: deck.id }, { qs: { page, step: 'answer', score } }) }}'">
+            <span style="font-size: 0.85rem; color: #777;">Voir la réponse</span>
+          </div>
+        @else
+          <div class="answer-zone revealed" style="text-align: center; padding: 10px 0; border-top: 1px solid #eee; margin-top: 10px;">
+            <span class="label" style="font-size: 0.7rem; text-transform: uppercase; opacity: 0.6;">Réponse</span>
+            <p style="font-size: 1rem; margin: 5px 0; color: #333;">
+              {{ card.answer }}
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 8px; margin-top: 12px;">
+            <a href="{{ route('decks.play', { id: deck.id }, { qs: { page: page + 1, step: 'question', score: score + 1 } }) }}"
+               class="btn-add-inline" style="background-color: #2ecc71; flex: 1; text-align: center; padding: 8px; color: white; text-decoration: none; border-radius: 4px; font-size: 0.9rem; font-weight: bold;">
+              Juste
+            </a>
+            <a href="{{ route('decks.play', { id: deck.id }, { qs: { page: page + 1, step: 'question', score } }) }}"
+               class="btn-add-inline" style="background-color: #e74c3c; flex: 1; text-align: center; padding: 8px; color: white; text-decoration: none; border-radius: 4px; font-size: 0.9rem; font-weight: bold;">
+              Faux
+            </a>
+          </div>
+        @endif
+
+      </div>
+    </div>
+  </div>
+</div>
+@end

@@ -28,6 +28,8 @@ router.group(() => {
   router.get('/deck/edit/:id', [DecksController, 'edit']).as('decks.edit')
   router.post('/deck/edit/:id', [DecksController, 'update']).as('decks.update')
 
+  router.get('/deck/play/:id', [DecksController, 'play']).as('decks.play')
+
   router.get('/categories', [CategoriesController, 'index']).as('categories')
   router.get('/category/add', [CategoriesController, 'create']).as('category.create')
   router.post('/category/add', [CategoriesController, 'store']).as('category.store')
@@ -36,9 +38,12 @@ router.group(() => {
   router.get('/deck/:deckId/cards/add', [CardsController, 'create']).as('cards.create')
   router.post('/deck/:deckId/cards/add', [CardsController, 'store']).as('cards.store')
 
+  router.delete('/decks/:id', [DecksController, 'destroy']).as('decks.destroy')
+
   router.delete('/cards/:id', [CardsController, 'destroy']).as('cards.destroy')
   router.get('/cards/edit/:id', [CardsController, 'edit']).as('cards.edit')
   router.post('/cards/edit/:id', [CardsController, 'update']).as('cards.update')
+
 
   router.get('/decks/mine', [DecksController, 'showMine']).as('decks.mine')
 
